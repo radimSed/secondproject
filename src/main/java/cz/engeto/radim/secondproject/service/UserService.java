@@ -6,33 +6,18 @@ import cz.engeto.radim.secondproject.dto.User;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.batch.BatchProperties;
-import org.springframework.context.annotation.Bean;
-import org.springframework.dao.DataAccessException;
 import org.springframework.dao.EmptyResultDataAccessException;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.HttpStatusCode;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
-import org.springframework.jmx.access.InvocationFailureException;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 import java.io.*;
-import java.net.URL;
 import java.nio.charset.StandardCharsets;
-import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.UUID;
-import java.util.logging.Level;
-//import java.util.logging.Logger;
 import java.io.InputStream;
-import org.slf4j.LoggerFactory;
-import cz.engeto.radim.secondproject.dto.User;
 
 @Service
 public class UserService {
@@ -44,7 +29,6 @@ public class UserService {
     Logger log = LoggerFactory.getLogger(UserService.class);
 
     public UserService(String file){
-//        jdbcTemplate = new JdbcTemplate();
         setPersonIds(file);
     }
     /**
@@ -150,8 +134,7 @@ public class UserService {
 
     public List<User> updateUser(User user){
         String query = "update users set Name = '" + user.getName() + "', Surname = '" + user.getSurname() +
-                "' where ID = " + user.getId() + " and PersonID = '" + user.getPersonId() + "' and Uuid = '" + user.getUuid() +
-                "'";
+                "' where ID = " + user.getId();
 
         int nmbrOfRowsAffected = jdbcTemplate.update(query);
 
@@ -162,12 +145,7 @@ public class UserService {
             log.warn(logString);
         }
 
-        query = "select * from users where ID = " + user.getId()
-                + " and Name = '" + user.getName()
-                + "' and Surname = '" + user.getSurname()
-                + "' and PersonID = '" + user.getPersonId()
-                + "' and Uuid = '" + user.getUuid() + "'";
-
+        query = "select * from users where ID = " + user.getId();
         return getDetailedUserList(query);
     }
 
@@ -226,12 +204,22 @@ public class UserService {
 
         String query = "delete from users where ID = " + id;
         int nmbr = jdbcTemplate.update(query);
-        returnString = "Deleted " + nmbr + " records from database. Affected user ID = " + id;
         if (nmbr == 1) {
+            returnString = "Deleted 1 record from database. Affected user ID = " + id;
             log.info(returnString);
         } else {
+            returnString = "Deleted " + nmbr + " records from database. Affected user ID = " + id;
             log.warn(returnString);
         }
         return returnString;
     }
+
+    public void clearPersonIds(){
+        this.personIDs.clear();
+    }
+
+    public void addPersonId(String id){
+        this.personIDs.add(id);
+    }
+
 }
