@@ -7,32 +7,6 @@
 	},
 	"item": [
 		{
-			"name": "getFrontEnd",
-			"request": {
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": "localhost:8080/api/v1/users?detail=false",
-					"host": [
-						"localhost"
-					],
-					"port": "8080",
-					"path": [
-						"api",
-						"v1",
-						"users"
-					],
-					"query": [
-						{
-							"key": "detail",
-							"value": "false"
-						}
-					]
-				}
-			},
-			"response": []
-		},
-		{
 			"name": "getAllUsersDetailTrue",
 			"request": {
 				"method": "GET",
@@ -59,12 +33,12 @@
 			"response": []
 		},
 		{
-			"name": "getUserId1DetailFalse",
+			"name": "getUserId23DetailFalse",
 			"request": {
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "localhost:8080/api/v1/user/1?detail=false",
+					"raw": "localhost:8080/api/v1/user/23?detail=false",
 					"host": [
 						"localhost"
 					],
@@ -73,7 +47,7 @@
 						"api",
 						"v1",
 						"user",
-						"1"
+						"23"
 					],
 					"query": [
 						{
@@ -86,12 +60,12 @@
 			"response": []
 		},
 		{
-			"name": "getUserId2DetailTrue",
+			"name": "getUserId24DetailTrue",
 			"request": {
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "localhost:8080/api/v1/user/2?detail=true",
+					"raw": "localhost:8080/api/v1/user/24?detail=true",
 					"host": [
 						"localhost"
 					],
@@ -100,7 +74,7 @@
 						"api",
 						"v1",
 						"user",
-						"2"
+						"24"
 					],
 					"query": [
 						{
@@ -119,7 +93,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"name\":\"Montgomery\",\n    \"surname\":\"Burns\"\n}",
+					"raw": "{\n    \"name\":\"Homer\",\n    \"surname\":\"Simpson\",\n    \"personId\":\"iM5sO6zXcW7v\"\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -142,12 +116,12 @@
 			"response": []
 		},
 		{
-			"name": "getUserId10DetailFalse",
+			"name": "getUserId10DetailFalseNotFound",
 			"request": {
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "localhost:8080/api/v1/user/10?detail=false",
+					"raw": "localhost:8080/api/v1/user/14?detail=false",
 					"host": [
 						"localhost"
 					],
@@ -156,39 +130,12 @@
 						"api",
 						"v1",
 						"user",
-						"10"
+						"14"
 					],
 					"query": [
 						{
 							"key": "detail",
 							"value": "false"
-						}
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "getUserId10DetailTrue",
-			"request": {
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": "localhost:8080/api/v1/user/10?detail=true",
-					"host": [
-						"localhost"
-					],
-					"port": "8080",
-					"path": [
-						"api",
-						"v1",
-						"user",
-						"10"
-					],
-					"query": [
-						{
-							"key": "detail",
-							"value": "true"
 						}
 					]
 				}
@@ -202,7 +149,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"id\": 2,\n    \"name\":\"Lisa\",\n    \"surname\":\"Simpson\"\n}",
+					"raw": "{\n    \"id\": 26,\n    \"name\":\"Lisa\",\n    \"surname\":\"Simpson\"\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -246,13 +193,21 @@
 			"response": []
 		},
 		{
-			"name": "getFrontEnd",
+			"name": "postUserInvalidId",
 			"request": {
-				"method": "GET",
+				"method": "POST",
 				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\":\"Lisa\",\n    \"surname\":\"Simpson\",\n    \"personId\":\"1a1a1a1a\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
 				"url": {
-					"raw": "http://localhost:8080/api/v1/users?detail=false",
-					"protocol": "http",
+					"raw": "localhost:8080/api/v1/user",
 					"host": [
 						"localhost"
 					],
@@ -260,13 +215,36 @@
 					"path": [
 						"api",
 						"v1",
-						"users"
-					],
-					"query": [
-						{
-							"key": "detail",
-							"value": "false"
+						"user"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "postUserUsedId",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\":\"Lisa\",\n    \"surname\":\"Simpson\",\n    \"personId\":\"mY6sT1jA3cLz\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
 						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/api/v1/user",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v1",
+						"user"
 					]
 				}
 			},
