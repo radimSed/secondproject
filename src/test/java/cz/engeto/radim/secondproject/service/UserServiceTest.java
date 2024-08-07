@@ -1,7 +1,9 @@
 package cz.engeto.radim.secondproject.service;
 
 import cz.engeto.radim.secondproject.controller.ConfigurationManager;
+import cz.engeto.radim.secondproject.controller.InvalidIdException;
 import cz.engeto.radim.secondproject.controller.NotFoundException;
+import cz.engeto.radim.secondproject.controller.PersonIdUsedException;
 import cz.engeto.radim.secondproject.dto.User;
 import net.bytebuddy.agent.VirtualMachine;
 import org.junit.Before;
@@ -128,7 +130,7 @@ public class UserServiceTest {
         try {
             userList = service.createUser(user);
             Assertions.assertTrue(false);
-        } catch (NotFoundException e) {
+        } catch (InvalidIdException e) {
             Assertions.assertTrue(true);
         }
     }
@@ -150,8 +152,29 @@ public class UserServiceTest {
             userList = service.createUser(user);
             Assertions.assertEquals(expName, userList.get(0).getName());
             Assertions.assertEquals(expSurname, userList.get(0).getSurname());
-        } catch (NotFoundException e) {
+        } catch (InvalidIdException e) {
             Assertions.assertTrue(false);
+        }
+    }
+
+    @Test
+    public void createUserTest3(){
+        //should fail because personId is already used
+        String expName = "Marge";
+        String expSurname = "Simpson";
+        String personId = "cN1vZ8pE5sYx"; //PId already assigned to Homer
+
+        User user = new User();
+        user.setName(expName);
+        user.setSurname(expSurname);
+        user.setPersonId(personId);
+
+        List<User> userList = new ArrayList<>();
+        try {
+            userList = service.createUser(user);
+            Assertions.assertTrue(false);
+        } catch (PersonIdUsedException e) {
+            Assertions.assertTrue(true);
         }
     }
 

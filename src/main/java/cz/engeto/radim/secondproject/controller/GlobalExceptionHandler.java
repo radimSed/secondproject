@@ -22,7 +22,7 @@ public class GlobalExceptionHandler {
         }
     }
 
-    @ExceptionHandler(Exception.class)
+    @ExceptionHandler(InvalidIdException.class)
     public ResponseEntity<GlobalErrorResponse> handleException(Exception e){
         GlobalErrorResponse errorResponse = new GlobalErrorResponse(HttpStatus.INTERNAL_SERVER_ERROR.value(),  e.getMessage()); {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(errorResponse);

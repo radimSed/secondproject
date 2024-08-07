@@ -2,6 +2,7 @@ package cz.engeto.radim.secondproject.service;
 
 import com.fasterxml.uuid.Generators;
 import com.fasterxml.uuid.impl.TimeBasedGenerator;
+import cz.engeto.radim.secondproject.controller.InvalidIdException;
 import cz.engeto.radim.secondproject.controller.PersonIdUsedException;
 import cz.engeto.radim.secondproject.controller.NotFoundException;
 import cz.engeto.radim.secondproject.dto.User;
@@ -48,8 +49,11 @@ public class UserService {
         }
 
         String[] parts = str.split("\n");
-        for( String line : parts ){
-            this.personIDs.add(line);
+        for( String line : parts ) {
+            String line2 = line.trim();
+            if (!line2.isBlank()){
+                this.personIDs.add(line.trim());
+            }
         }
     }
 
@@ -170,7 +174,7 @@ public class UserService {
         if (!isValid){
             String errorMessage = "PersonId " + user.getPersonId() + " is not valid, user not created";
             log.error(errorMessage);
-            throw new NotFoundException(errorMessage);
+            throw new InvalidIdException(errorMessage);
         }
 
         boolean isAvailable;
