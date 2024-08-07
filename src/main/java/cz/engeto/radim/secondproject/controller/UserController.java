@@ -2,17 +2,11 @@ package cz.engeto.radim.secondproject.controller;
 
 import cz.engeto.radim.secondproject.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.io.ClassPathResource;
-import org.springframework.core.io.Resource;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.util.FileCopyUtils;
 import org.springframework.web.bind.annotation.*;
 import cz.engeto.radim.secondproject.dto.User;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.nio.charset.StandardCharsets;
 import java.util.List;
 
 @RestController
